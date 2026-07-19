@@ -1,0 +1,27 @@
+name: QQQ GEX Bot
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 13-20 * * 1-5'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: Install dependencies
+        run: pip install yfinance numpy scipy
+      - name: Run script
+        run: python gex_bot.py
+      - name: Commit data
+        run: |
+          git config --global user.name 'GEX Bot'
+          git config --global user.email 'bot@github.com'
+          git add data.json
+          git commit -m 'Update GEX data' || exit 0
+          git push
