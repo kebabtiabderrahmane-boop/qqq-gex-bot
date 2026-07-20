@@ -1,0 +1,11 @@
+{
+  "timestamp": "2026-07-20T00:22:19.464995",
+  "spot": 695.33,
+  "call_wall": 708,
+  "put_wall": 691,
+  "flip": 695,
+  "dte_call_wall": 700,
+  "dte_put_wall": 691,
+  "dte_flip": 695,
+  "is_0dte": true
+}

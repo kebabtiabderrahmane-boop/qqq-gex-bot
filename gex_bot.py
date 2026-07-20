@@ -68,4 +68,30 @@ def find_confluence(spot, gex_list, is_0dte, today_str, ticker):
         for i in range(len(gex_0dte)-1):
             if gex_0dte[i]['strike'] <= spot <= gex_0dte[i+1]['strike']:
                 if (gex_0dte[i]['gex'] > 0 and gex_0dte[i+1]['gex'] < 0) or (gex_0dte[i]['gex'] < 0 and gex_0dte[i+1]['gex'] > 0):
-                    dte_flip =
+                    dte_flip = gex_0dte[i]['strike']
+                    break
+    
+    return {
+        'call_wall': int(cw),
+        'put_wall': int(pw),
+        'flip': int(flip),
+        'dte_call_wall': int(dte_cw),
+        'dte_put_wall': int(dte_pw),
+        'dte_flip': int(dte_flip) if dte_flip else 0,
+        'is_0dte': is_0dte
+    }
+
+if __name__ == "__main__":
+    spot, gex_list, is_0dte, today_str, ticker = get_gex_data()
+    confluence = find_confluence(spot, gex_list, is_0dte, today_str, ticker)
+    
+    output = {
+        'timestamp': datetime.datetime.now().isoformat(),
+        'spot': round(spot, 2),
+        **confluence
+    }
+    
+    with open('data.json', 'w') as f:
+        json.dump(output, f, indent=2)
+    
+    print(json.dumps(output, indent=2))
