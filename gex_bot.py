@@ -1,285 +1,399 @@
+"""
+QQQ GEX Confluence Bot - LIVE DATA VERSION
+============================================
+This script fetches REAL, LIVE options data from Yahoo Finance
+and calculates actual Gamma Exposure values.
+
+NO HARDCODED PRICES - All data is pulled from live market data.
+"""
+
 import yfinance as yf
 import numpy as np
 from scipy.stats import norm
 import datetime
 import json
 from collections import defaultdict
+import pprint
 
 TICKER = "QQQ"
 
-def calc_gex(strike, oi, spot, iv, dte, is_call):
-    """Calculate Gamma Exposure for a single option."""
-    if oi == 0 or iv == 0:
-        return 0
-    T = max(0.5, dte) / 365.0
-    r = 0.05
+def is_valid_number(val):
+    """Check if value is a valid number (not NaN or None)."""
+    if val is None:
+        return False
     try:
-        d1 = (np.log(spot / strike) + (r + 0.5 * iv**2) * T) / (iv * np.sqrt(T))
-        gamma = norm.pdf(d1) / (spot * iv * np.sqrt(T))
-        gex = oi * 100 * gamma * spot * (1 if is_call else -1)
-        return gex
+        return not np.isnan(float(val))
     except:
-        return 0
+        return False
+
+def calc_gex(strike, oi, spot, iv, dte, is_call):
+    """
+    Calculate Gamma Exposure using Black-Scholes formula.
+    
+    GEX = OpenInterest * 100 * Gamma * Spot (for calls)
+    GEX = -1 * OpenInterest * 100 * Gamma * Spot (for puts)
+    
+    Where Gamma = norm.pdf(d1) / (spot * iv * sqrt(T))
+    """
+    if oi == 0 or iv == 0 or spot == 0:
+        return 0.0
+    
+    T = max(0.5, dte) / 365.0  # Time to expiration in years
+    r = 0.05  # Risk-free rate
+    
+    try:
+        # d1 from Black-Scholes
+        d1 = (np.log(spot / strike) + (r + 0.5 * iv**2) * T) / (iv * np.sqrt(T))
+        
+        # Gamma calculation
+        gamma = norm.pdf(d1) / (spot * iv * np.sqrt(T))
+        
+        # GEX = OpenInterest * 100 (contract multiplier) * Gamma * Spot
+        # Calls add positive gamma, Puts add negative gamma
+        if is_call:
+            gex = oi * 100 * gamma * spot
+        else:
+            gex = -1 * oi * 100 * gamma * spot
+        
+        return gex
+    except Exception as e:
+        print(f"      GEX calc error for strike {strike}: {e}")
+        return 0.0
 
 def round_strike(strike, step=1.0):
     """Round strike to nearest step (0.5 or 1.0)."""
     return round(strike / step) * step
 
-def get_all_chain_data(ticker, expirations):
-    """Fetch complete options chain data for all expirations."""
-    all_data = {
-        'calls': [],
-        'puts': [],
-        'by_expiration': {}
-    }
+def fetch_live_options_chain(ticker, expirations):
+    """
+    Fetch COMPLETE options chain data from Yahoo Finance.
+    Returns raw data + calculated GEX for every strike.
+    """
+    print("\n" + "="*70)
+    print("FETCHING LIVE OPTIONS DATA FROM YAHOO FINANCE")
+    print("="*70)
+    
+    all_calls = []
+    all_puts = []
+    by_expiration = {}
     
     for exp in expirations:
+        print(f"\n📅 Expiration: {exp}")
         try:
             chain = ticker.option_chain(exp)
             dte = max(1, (datetime.datetime.strptime(exp, '%Y-%m-%d') - datetime.datetime.now()).days)
+            print(f"   DTE: {dte} days")
             
             exp_calls = []
             exp_puts = []
             
-            for _, row in chain.calls.iterrows():
-                iv = row['impliedVolatility'] if pd_notna(row['impliedVolatility']) else 0.20
-                vol = row['volume'] if pd_notna(row['volume']) else 0
-                oi = row['openInterest'] if pd_notna(row['openInterest']) else 0
+            # Process ALL Call options
+            print(f"\n   📊 CALLS ({len(chain.calls)} strikes):")
+            for idx, row in chain.calls.iterrows():
+                strike = float(row['strike'])
+                iv = float(row['impliedVolatility']) if is_valid_number(row['impliedVolatility']) else 0.20
+                volume = int(row['volume']) if is_valid_number(row['volume']) else 0
+                oi = int(row['openInterest']) if is_valid_number(row['openInterest']) else 0
+                last = float(row['lastPrice']) if is_valid_number(row.get('lastPrice', None)) else 0.0
                 
-                gex = calc_gex(row['strike'], oi, ticker.fast_info['last_price'], iv, dte, True)
+                # Calculate GEX for this specific strike
+                gex = calc_gex(strike, oi, ticker.fast_info['last_price'], iv, dte, is_call=True)
                 
                 call_data = {
-                    'strike': row['strike'],
+                    'strike': strike,
                     'expiration': exp,
                     'dte': dte,
                     'iv': iv,
-                    'volume': vol,
+                    'volume': volume,
                     'openInterest': oi,
-                    'gex': gex
+                    'lastPrice': last,
+                    'gex': gex,
+                    'gex_positive': gex > 0
                 }
-                all_data['calls'].append(call_data)
+                
+                all_calls.append(call_data)
                 exp_calls.append(call_data)
                 
-            for _, row in chain.puts.iterrows():
-                iv = row['impliedVolatility'] if pd_notna(row['impliedVolatility']) else 0.20
-                vol = row['volume'] if pd_notna(row['volume']) else 0
-                oi = row['openInterest'] if pd_notna(row['openInterest']) else 0
+                # Print first 5 and last 5 strikes to prove live data
+                if idx < 5 or idx >= len(chain.calls) - 3:
+                    print(f"      Strike ${strike:.2f}: OI={oi:,}, Vol={volume:,}, IV={iv:.2%}, GEX={gex:,.0f}")
+            
+            if len(chain.calls) > 10:
+                print(f"      ... ({len(chain.calls) - 8} more strikes) ...")
+            
+            # Process ALL Put options
+            print(f"\n   📊 PUTS ({len(chain.puts)} strikes):")
+            for idx, row in chain.puts.iterrows():
+                strike = float(row['strike'])
+                iv = float(row['impliedVolatility']) if is_valid_number(row['impliedVolatility']) else 0.20
+                volume = int(row['volume']) if is_valid_number(row['volume']) else 0
+                oi = int(row['openInterest']) if is_valid_number(row['openInterest']) else 0
+                last = float(row['lastPrice']) if is_valid_number(row.get('lastPrice', None)) else 0.0
                 
-                gex = calc_gex(row['strike'], oi, ticker.fast_info['last_price'], iv, dte, False)
+                # Calculate GEX for this specific strike
+                gex = calc_gex(strike, oi, ticker.fast_info['last_price'], iv, dte, is_call=False)
                 
                 put_data = {
-                    'strike': row['strike'],
+                    'strike': strike,
                     'expiration': exp,
                     'dte': dte,
                     'iv': iv,
-                    'volume': vol,
+                    'volume': volume,
                     'openInterest': oi,
-                    'gex': gex
+                    'lastPrice': last,
+                    'gex': gex,
+                    'gex_positive': gex > 0
                 }
-                all_data['puts'].append(put_data)
+                
+                all_puts.append(put_data)
                 exp_puts.append(put_data)
                 
-            all_data['by_expiration'][exp] = {'calls': exp_calls, 'puts': exp_puts, 'dte': dte}
+                # Print first 5 and last 5 strikes
+                if idx < 5 or idx >= len(chain.puts) - 3:
+                    print(f"      Strike ${strike:.2f}: OI={oi:,}, Vol={volume:,}, IV={iv:.2%}, GEX={gex:,.0f}")
+            
+            if len(chain.puts) > 10:
+                print(f"      ... ({len(chain.puts) - 8} more strikes) ...")
+            
+            by_expiration[exp] = {
+                'calls': exp_calls,
+                'puts': exp_puts,
+                'dte': dte,
+                'total_call_oi': sum(c['openInterest'] for c in exp_calls),
+                'total_put_oi': sum(p['openInterest'] for p in exp_puts),
+                'total_call_vol': sum(c['volume'] for c in exp_calls),
+                'total_put_vol': sum(p['volume'] for p in exp_puts)
+            }
             
         except Exception as e:
-            print(f"Error fetching {exp}: {e}")
+            print(f"   ❌ Error fetching {exp}: {e}")
             continue
-            
-    return all_data
+    
+    print("\n" + "="*70)
+    print("SUMMARY OF FETCHED DATA")
+    print("="*70)
+    print(f"Total Calls fetched: {len(all_calls)}")
+    print(f"Total Puts fetched: {len(all_puts)}")
+    print(f"Total Open Interest (Calls): {sum(c['openInterest'] for c in all_calls):,}")
+    print(f"Total Open Interest (Puts): {sum(p['openInterest'] for p in all_puts):,}")
+    print(f"Total Volume (Calls): {sum(c['volume'] for c in all_calls):,}")
+    print(f"Total Volume (Puts): {sum(p['volume'] for p in all_puts):,}")
+    
+    return {
+        'calls': all_calls,
+        'puts': all_puts,
+        'by_expiration': by_expiration
+    }
 
-def pd_notna(val):
-    """Check if value is not NaN."""
-    try:
-        return not np.isnan(val)
-    except:
-        return val is not None
-
-def find_walls(gex_list, spot, gex_type='call'):
-    """Find Call Wall (highest GEX above spot) or Put Wall (lowest GEX below spot)."""
-    if gex_type == 'call':
-        candidates = [x for x in gex_list if x['strike'] > spot and x['gex'] > 0]
-        if candidates:
-            return max(candidates, key=lambda x: x['gex'])['strike']
-    else:
-        candidates = [x for x in gex_list if x['strike'] < spot and x['gex'] < 0]
-        if candidates:
-            return min(candidates, key=lambda x: x['gex'])['strike']
-    return spot
-
-def find_gamma_flip(gex_list, spot):
-    """Find the price where GEX transitions from positive to negative."""
-    sorted_gex = sorted(gex_list, key=lambda x: x['strike'])
+def calculate_all_gex_levels(spot, chain_data, today_str, is_0dte):
+    """
+    Calculate ALL GEX-based levels from the fetched data.
+    This is the actual mathematical analysis - NO HARDCODING.
+    """
+    print("\n" + "="*70)
+    print("CALCULATING GEX LEVELS (MATHEMATICAL ANALYSIS)")
+    print("="*70)
     
-    for i in range(len(sorted_gex) - 1):
-        curr = sorted_gex[i]
-        next_strike = sorted_gex[i + 1]
-        
-        if curr['strike'] <= spot <= next_strike['strike']:
-            if curr['gex'] > 0 and next_strike['gex'] < 0:
-                return curr['strike']
-            if curr['gex'] < 0 and next_strike['gex'] > 0:
-                return curr['strike']
-    return spot
-
-def find_max_pain(chain_data, spot):
-    """Calculate Max Pain - strike where option buyers lose most."""
-    calls = chain_data['calls']
-    puts = chain_data['puts']
-    
-    all_strikes = sorted(set([c['strike'] for c in calls] + [p['strike'] for p in puts]))
-    
-    max_pain = spot
-    min_pain = float('inf')
-    
-    for strike in all_strikes:
-        pain = 0
-        
-        # Calculate pain from calls above strike (call buyers lose when price rises above strike)
-        for c in calls:
-            if c['strike'] >= strike:
-                pain += c.get('openInterest', 0) * max(0, c['strike'] - strike)
-        
-        # Calculate pain from puts below strike (put buyers lose when price falls below strike)
-        for p in puts:
-            if p['strike'] <= strike:
-                pain += p.get('openInterest', 0) * max(0, strike - p['strike'])
-        
-        if pain < min_pain:
-            min_pain = pain
-            max_pain = strike
-    
-    return max_pain
-
-def find_hvl(chain_data, top_n=5):
-    """Find High Volume Levels - strikes with highest total volume."""
-    volume_by_strike = defaultdict(lambda: {'call_vol': 0, 'put_vol': 0, 'total_vol': 0})
-    
-    for c in chain_data['calls']:
-        volume_by_strike[c['strike']]['call_vol'] += c.get('volume', 0)
-        volume_by_strike[c['strike']]['total_vol'] += c.get('volume', 0)
-    
-    for p in chain_data['puts']:
-        volume_by_strike[p['strike']]['put_vol'] += p.get('volume', 0)
-        volume_by_strike[p['strike']]['total_vol'] += p.get('volume', 0)
-    
-    sorted_by_vol = sorted(volume_by_strike.items(), key=lambda x: x[1]['total_vol'], reverse=True)
-    return [strike for strike, _ in sorted_by_vol[:top_n]]
-
-def find_top_10_gex(chain_data):
-    """Find top 10 strikes by absolute GEX."""
-    all_gex = []
-    for c in chain_data['calls']:
-        all_gex.append({'strike': c['strike'], 'gex': c['gex'], 'type': 'call'})
-    for p in chain_data['puts']:
-        all_gex.append({'strike': p['strike'], 'gex': abs(p['gex']), 'type': 'put'})
-    
-    sorted_gex = sorted(all_gex, key=lambda x: abs(x['gex']), reverse=True)
-    return [(x['strike'], x['type']) for x in sorted_gex[:10]]
-
-def find_d1_bounds(gex_list, spot):
-    """Find Max D1 (upper) and Min D1 (lower) bounds of highest GEX cluster."""
-    # Sort by absolute GEX
-    sorted_by_gex = sorted(gex_list, key=lambda x: abs(x['gex']), reverse=True)
-    
-    # Get top 20% of strikes by GEX
-    top_count = max(5, len(sorted_by_gex) // 5)
-    top_gex = sorted_by_gex[:top_count]
-    
-    if not top_gex:
-        return spot + 10, spot - 10
-    
-    strikes = [x['strike'] for x in top_gex]
-    max_d1 = max(strikes)
-    min_d1 = min(strikes)
-    
-    return max_d1, min_d1
-
-def find_intraday_levels(chain_data, expirations):
-    """Find strikes with unusual volume vs open interest."""
-    unusual = []
-    
-    for exp in expirations[:3]:
-        if exp not in chain_data['by_expiration']:
-            continue
-        exp_data = chain_data['by_expiration'][exp]
-        
-        for c in exp_data['calls']:
-            if c['openInterest'] > 0:
-                ratio = c['volume'] / c['openInterest']
-                if ratio > 2:  # Unusual volume
-                    unusual.append((c['strike'], 'call', ratio))
-        
-        for p in exp_data['puts']:
-            if p['openInterest'] > 0:
-                ratio = p['volume'] / p['openInterest']
-                if ratio > 2:
-                    unusual.append((p['strike'], 'put', ratio))
-    
-    # Return top 5 unusual levels
-    unusual.sort(key=lambda x: x[2], reverse=True)
-    return [(s, t) for s, t, r in unusual[:5]]
-
-def build_confluence(spot, chain_data, today_str, is_0dte):
-    """Build confluence dictionary - group signals by strike price."""
     all_gex = chain_data['calls'] + chain_data['puts']
-    all_gex.sort(key=lambda x: x['strike'])
     
-    # Calculate all signal types
+    # Sort by strike for analysis
+    all_gex_by_strike = sorted(all_gex, key=lambda x: x['strike'])
+    
+    print(f"\nAnalyzing {len(all_gex_by_strike)} total options...")
+    
     signals_by_strike = defaultdict(list)
     
-    # 1. 0DTE Levels
+    # =================================================================
+    # 1. 0DTE LEVELS (Only if today is an expiration)
+    # =================================================================
     if is_0dte and today_str in chain_data['by_expiration']:
+        print("\n📌 0DTE LEVELS (Today's Expiration)")
+        print("-" * 40)
+        
         exp_data = chain_data['by_expiration'][today_str]
-        exp_calls = exp_data['calls']
-        exp_puts = exp_data['puts']
-        exp_gex = exp_calls + exp_puts
+        exp_all_gex = exp_data['calls'] + exp_data['puts']
         
-        dte_cw = find_walls(exp_gex, spot, 'call')
-        dte_pw = find_walls(exp_gex, spot, 'put')
-        dte_flip = find_gamma_flip(exp_gex, spot)
+        # Find 0DTE Call Wall: highest positive GEX above spot
+        call_candidates = [x for x in exp_all_gex if x['strike'] > spot and x['gex'] > 0]
+        if call_candidates:
+            dte_cw_strike = max(call_candidates, key=lambda x: x['gex'])['strike']
+            dte_cw_gex = max(call_candidates, key=lambda x: x['gex'])['gex']
+            signals_by_strike[round_strike(dte_cw_strike)].append("0DTE CW")
+            print(f"   0DTE Call Wall: ${dte_cw_strike:.2f} (GEX: {dte_cw_gex:,.0f})")
         
-        signals_by_strike[round_strike(dte_cw)].append("0DTE CW")
-        signals_by_strike[round_strike(dte_pw)].append("0DTE PW")
-        signals_by_strike[round_strike(dte_flip)].append("0DTE Flip")
+        # Find 0DTE Put Wall: most negative GEX below spot
+        put_candidates = [x for x in exp_all_gex if x['strike'] < spot and x['gex'] < 0]
+        if put_candidates:
+            dte_pw_strike = min(put_candidates, key=lambda x: x['gex'])['strike']
+            dte_pw_gex = min(put_candidates, key=lambda x: x['gex'])['gex']
+            signals_by_strike[round_strike(dte_pw_strike)].append("0DTE PW")
+            print(f"   0DTE Put Wall: ${dte_pw_strike:.2f} (GEX: {dte_pw_gex:,.0f})")
+        
+        # Find 0DTE Gamma Flip
+        sorted_exp = sorted(exp_all_gex, key=lambda x: x['strike'])
+        for i in range(len(sorted_exp) - 1):
+            curr = sorted_exp[i]
+            next_s = sorted_exp[i + 1]
+            if curr['gex'] > 0 and next_s['gex'] < 0 and curr['strike'] <= spot <= next_s['strike']:
+                signals_by_strike[round_strike(curr['strike'])].append("0DTE Flip")
+                print(f"   0DTE Gamma Flip: ${curr['strike']:.2f}")
+                break
+    else:
+        print("\n📌 0DTE LEVELS: Not applicable (no 0DTE today)")
     
-    # 2. Aggregate Levels (all expirations combined)
-    agg_cw = find_walls(all_gex, spot, 'call')
-    agg_pw = find_walls(all_gex, spot, 'put')
-    agg_flip = find_gamma_flip(all_gex, spot)
+    # =================================================================
+    # 2. AGGREGATE LEVELS (All expirations combined)
+    # =================================================================
+    print("\n📌 AGGREGATE LEVELS (All Expirations)")
+    print("-" * 40)
     
-    signals_by_strike[round_strike(agg_cw)].append("Agg CW")
-    signals_by_strike[round_strike(agg_pw)].append("Agg PW")
-    signals_by_strike[round_strike(agg_flip)].append("Agg Flip")
+    # Aggregate Call Wall
+    agg_call_candidates = [x for x in all_gex if x['strike'] > spot and x['gex'] > 0]
+    if agg_call_candidates:
+        agg_cw_strike = max(agg_call_candidates, key=lambda x: x['gex'])['strike']
+        agg_cw_gex = max(agg_call_candidates, key=lambda x: x['gex'])['gex']
+        signals_by_strike[round_strike(agg_cw_strike)].append("Agg CW")
+        print(f"   Aggregate Call Wall: ${agg_cw_strike:.2f} (GEX: {agg_cw_gex:,.0f})")
     
-    # 3. Gamma Flips
-    gamma_flip = find_gamma_flip(all_gex, spot)
-    signals_by_strike[round_strike(gamma_flip)].append("Gamma Flip")
+    # Aggregate Put Wall
+    agg_put_candidates = [x for x in all_gex if x['strike'] < spot and x['gex'] < 0]
+    if agg_put_candidates:
+        agg_pw_strike = min(agg_put_candidates, key=lambda x: x['gex'])['strike']
+        agg_pw_gex = min(agg_put_candidates, key=lambda x: x['gex'])['gex']
+        signals_by_strike[round_strike(agg_pw_strike)].append("Agg PW")
+        print(f"   Aggregate Put Wall: ${agg_pw_strike:.2f} (GEX: {agg_pw_gex:,.0f})")
     
-    # 4. Max Pain
-    max_pain = find_max_pain(chain_data, spot)
-    signals_by_strike[round_strike(max_pain)].append("Max Pain")
+    # =================================================================
+    # 3. GAMMA FLIP (Where GEX crosses zero)
+    # =================================================================
+    print("\n📌 GAMMA FLIP POINTS")
+    print("-" * 40)
     
-    # 5. Top 10 GEX Levels
-    top_10 = find_top_10_gex(chain_data)
-    for strike, typ in top_10:
-        signals_by_strike[round_strike(strike)].append(f"Top 10 GEX")
+    sorted_all = sorted(all_gex, key=lambda x: x['strike'])
+    gamma_flips_found = 0
+    for i in range(len(sorted_all) - 1):
+        curr = sorted_all[i]
+        next_s = sorted_all[i + 1]
+        if curr['gex'] > 0 and next_s['gex'] < 0:
+            signals_by_strike[round_strike(curr['strike'])].append("Gamma Flip")
+            print(f"   Gamma Flip: ${curr['strike']:.2f} (GEX: {curr['gex']:,.0f} → {next_s['gex']:,.0f})")
+            gamma_flips_found += 1
+    if gamma_flips_found == 0:
+        print("   No gamma flips found in current chain")
     
-    # 6. HVL (High Volume Levels)
-    hvl = find_hvl(chain_data)
-    for strike in hvl:
+    # =================================================================
+    # 4. MAX PAIN (Where option buyers lose the most)
+    # =================================================================
+    print("\n📌 MAX PAIN CALCULATION")
+    print("-" * 40)
+    
+    # Get unique strikes
+    all_strikes = sorted(set([x['strike'] for x in all_gex]))
+    max_pain_strike = spot
+    min_pain_value = float('inf')
+    
+    # Calculate pain at each strike
+    pain_samples = []
+    for test_strike in all_strikes:
+        pain = 0
+        for c in chain_data['calls']:
+            if c['strike'] >= test_strike:
+                pain += c['openInterest'] * max(0, c['strike'] - test_strike)
+        for p in chain_data['puts']:
+            if p['strike'] <= test_strike:
+                pain += p['openInterest'] * max(0, test_strike - p['strike'])
+        
+        pain_samples.append((test_strike, pain))
+        
+        if pain < min_pain_value:
+            min_pain_value = pain
+            max_pain_strike = test_strike
+    
+    signals_by_strike[round_strike(max_pain_strike)].append("Max Pain")
+    print(f"   Max Pain Strike: ${max_pain_strike:.2f} (Total Pain: ${min_pain_value:,.0f})")
+    
+    # =================================================================
+    # 5. TOP 10 GEX LEVELS
+    # =================================================================
+    print("\n📌 TOP 10 GEX LEVELS")
+    print("-" * 40)
+    
+    # Sort by absolute GEX
+    by_gex = sorted(all_gex, key=lambda x: abs(x['gex']), reverse=True)
+    top_10_gex = by_gex[:10]
+    
+    for i, opt in enumerate(top_10_gex, 1):
+        sig_type = "CALL" if opt['gex'] > 0 else "PUT"
+        signals_by_strike[round_strike(opt['strike'])].append("Top 10 GEX")
+        print(f"   #{i}: ${opt['strike']:.2f} ({sig_type}) - GEX: {opt['gex']:,.0f}")
+    
+    # =================================================================
+    # 6. HIGH VOLUME LEVELS (HVL)
+    # =================================================================
+    print("\n📌 HIGH VOLUME LEVELS")
+    print("-" * 40)
+    
+    volume_by_strike = defaultdict(int)
+    for c in chain_data['calls']:
+        volume_by_strike[c['strike']] += c['volume']
+    for p in chain_data['puts']:
+        volume_by_strike[p['strike']] += p['volume']
+    
+    sorted_by_vol = sorted(volume_by_strike.items(), key=lambda x: x[1], reverse=True)
+    hvl_strikes = [strike for strike, vol in sorted_by_vol[:5]]
+    
+    for i, (strike, vol) in enumerate(sorted_by_vol[:5], 1):
         signals_by_strike[round_strike(strike)].append("HVL")
+        print(f"   #{i}: ${strike:.2f} - Total Volume: {vol:,}")
     
-    # 7. D1 Bounds
-    max_d1, min_d1 = find_d1_bounds(all_gex, spot)
-    signals_by_strike[round_strike(max_d1)].append("Max D1")
-    signals_by_strike[round_strike(min_d1)].append("Min D1")
+    # =================================================================
+    # 7. D1 BOUNDS (Outer bounds of high GEX cluster)
+    # =================================================================
+    print("\n📌 D1 BOUNDS (GEX Cluster Edges)")
+    print("-" * 40)
     
-    # 8. Intraday/Unusual Volume Levels
-    intraday = find_intraday_levels(chain_data, list(chain_data['by_expiration'].keys())[:3])
-    for strike, typ in intraday:
+    # Get top 20% by absolute GEX
+    top_count = max(5, len(by_gex) // 5)
+    top_gex_strikes = [x['strike'] for x in by_gex[:top_count]]
+    
+    if top_gex_strikes:
+        max_d1 = max(top_gex_strikes)
+        min_d1 = min(top_gex_strikes)
+        
+        signals_by_strike[round_strike(max_d1)].append("Max D1")
+        signals_by_strike[round_strike(min_d1)].append("Min D1")
+        print(f"   Max D1 (Upper Bound): ${max_d1:.2f}")
+        print(f"   Min D1 (Lower Bound): ${min_d1:.2f}")
+    
+    # =================================================================
+    # 8. INTRADAY LEVELS (Unusual volume vs OI)
+    # =================================================================
+    print("\n📌 INTRADAY UNUSUAL VOLUME")
+    print("-" * 40)
+    
+    unusual = []
+    for opt in all_gex:
+        if opt['openInterest'] > 100:  # Minimum OI threshold
+            ratio = opt['volume'] / opt['openInterest'] if opt['openInterest'] > 0 else 0
+            if ratio > 2.0:  # Volume 2x greater than OI
+                unusual.append((opt['strike'], ratio, opt['volume'], opt['openInterest']))
+    
+    unusual.sort(key=lambda x: x[1], reverse=True)
+    for strike, ratio, vol, oi in unusual[:5]:
         signals_by_strike[round_strike(strike)].append("Intraday")
+        print(f"   ${strike:.2f}: Vol/OI Ratio = {ratio:.2f}x (Vol: {vol:,}, OI: {oi:,})")
     
-    # Build confluence output - ONLY include strikes with score >= 2
+    return signals_by_strike
+
+def build_confluence_output(spot, signals_by_strike):
+    """
+    Build the final confluence output.
+    ONLY include strikes with 2+ signals (score >= 2).
+    """
+    print("\n" + "="*70)
+    print("CONFLUENCE ANALYSIS (Score >= 2 Required)")
+    print("="*70)
+    
     confluence = []
     
     for strike, tags in sorted(signals_by_strike.items()):
@@ -288,53 +402,81 @@ def build_confluence(spot, chain_data, today_str, is_0dte):
         if score < 2:
             continue
         
-        # Determine type based on tags
-        call_tags = sum(1 for t in tags if 'CW' in t or 'call' in t.lower() or 'Top' in t)
-        put_tags = sum(1 for t in tags if 'PW' in t or 'put' in t.lower())
+        # Determine type based on tag composition
+        call_score = sum(1 for t in tags if 'CW' in t or 'Top' in t)
+        put_score = sum(1 for t in tags if 'PW' in t or 'put' in t.lower())
         
-        if 'Flip' in ' '.join(tags):
+        if any('Flip' in t for t in tags):
             conf_type = 'FLIP'
-        elif call_tags > put_tags:
+        elif call_score > put_score:
             conf_type = 'CALL'
-        elif put_tags > call_tags:
+        elif put_score > call_score:
             conf_type = 'PUT'
         else:
             conf_type = 'NEUTRAL'
         
-        confluence.append({
+        level = {
             'strike': round(strike, 2),
             'tags': ' + '.join(tags),
             'score': score,
             'type': conf_type
-        })
+        }
+        
+        confluence.append(level)
+        print(f"\n   ✅ ${level['strike']:.2f}")
+        print(f"      Type: {level['type']}")
+        print(f"      Score: {level['score']}")
+        print(f"      Tags: {level['tags']}")
     
     # Sort by score descending, then by distance from spot
     confluence.sort(key=lambda x: (-x['score'], abs(x['strike'] - spot)))
     
-    return confluence[:10]  # Return top 10 confluence levels
+    print(f"\n\n📊 TOTAL CONFLUENCE LEVELS FOUND: {len(confluence)}")
+    
+    return confluence[:10]  # Return max 10
 
 if __name__ == "__main__":
-    print("QQQ GEX Confluence Bot - Starting...")
+    print("\n" + "#"*70)
+    print("# QQQ GEX CONFLUENCE BOT - LIVE DATA EDITION")
+    print("# NO HARDCODED PRICES - ALL DATA FROM LIVE MARKET")
+    print("#"*70)
     
+    # Initialize ticker
     ticker = yf.Ticker(TICKER)
+    
+    # Get current spot price
     spot = ticker.fast_info['last_price']
-    print(f"Current QQQ Spot: ${spot:.2f}")
+    print(f"\n📈 CURRENT QQQ SPOT PRICE: ${spot:.2f}")
     
-    expirations = list(ticker.options)[:6]  # Get up to 6 expirations
-    print(f"Found {len(expirations)} expiration dates")
+    # Get available expirations
+    expirations = list(ticker.options)[:6]  # Up to 6 expirations
+    print(f"📅 AVAILABLE EXPIRATIONS: {len(expirations)}")
+    for exp in expirations:
+        print(f"      - {exp}")
     
+    # Check if today is an expiration
     today_str = datetime.datetime.now().strftime('%Y-%m-%d')
     is_0dte = today_str in expirations
-    print(f"0DTE: {is_0dte}")
+    print(f"\n🎯 IS 0DTE TODAY: {is_0dte}")
     
-    # Fetch all chain data
-    chain_data = get_all_chain_data(ticker, expirations)
-    print(f"Loaded {len(chain_data['calls'])} calls and {len(chain_data['puts'])} puts")
+    # =====================================================================
+    # STEP 1: FETCH ALL LIVE OPTIONS DATA
+    # =====================================================================
+    chain_data = fetch_live_options_chain(ticker, expirations)
     
-    # Build confluence
-    confluence = build_confluence(spot, chain_data, today_str, is_0dte)
+    # =====================================================================
+    # STEP 2: CALCULATE ALL GEX LEVELS
+    # =====================================================================
+    signals_by_strike = calculate_all_gex_levels(spot, chain_data, today_str, is_0dte)
     
-    # Build output
+    # =====================================================================
+    # STEP 3: BUILD CONFLUENCE (Score >= 2 Only)
+    # =====================================================================
+    confluence = build_confluence_output(spot, signals_by_strike)
+    
+    # =====================================================================
+    # STEP 4: SAVE TO JSON
+    # =====================================================================
     output = {
         'spot': round(spot, 2),
         'confluence': confluence,
@@ -342,13 +484,11 @@ if __name__ == "__main__":
         'is_0dte': is_0dte
     }
     
-    # Save to file
     with open('data.json', 'w') as f:
         json.dump(output, f, indent=2)
     
-    print(f"\nFound {len(confluence)} confluence levels (score >= 2):")
-    for c in confluence:
-        print(f"  ${c['strike']:.2f} [{c['type']}] Score {c['score']}: {c['tags']}")
-    
-    print(f"\nData saved to data.json")
+    print("\n" + "="*70)
+    print("FINAL OUTPUT SAVED TO data.json")
+    print("="*70)
     print(json.dumps(output, indent=2))
+    print("\n✅ Script completed successfully!")
