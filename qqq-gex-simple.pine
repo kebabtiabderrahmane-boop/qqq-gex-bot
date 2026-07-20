@@ -1,0 +1,41 @@
+// SUPER SIMPLE GEX - Copy and paste this into TradingView
+//@version=5
+indicator("GEX Lines", overlay=true)
+
+// ============ YOUR LEVELS (from data.json) ============
+float line1 = 930.00
+string txt1 = "⚡3 CALL"
+float line2 = 0.00
+string txt2 = ""
+float line3 = 0.00
+string txt3 = ""
+float line4 = 0.00
+string txt4 = ""
+float line5 = 0.00
+string txt5 = ""
+
+// ============ COLORS (don't change) ============
+color c1 = color.green
+color c2 = color.red
+color c3 = color.yellow
+color c4 = color.blue
+color c5 = color.white
+
+// ============ DRAW LINES ============
+p1 = plot(line1, color=c1, linewidth=3)
+p2 = plot(line2 > 0 ? line2 : na, color=c2, linewidth=3)
+p3 = plot(line3 > 0 ? line3 : na, color=c3, linewidth=3)
+p4 = plot(line4 > 0 ? line4 : na, color=c4, linewidth=3)
+p5 = plot(line5 > 0 ? line5 : na, color=c5, linewidth=3)
+
+// ============ DRAW LABELS ON LAST BAR ============
+if barstate.islast
+    lbl1 = label.new(bar_index + 5, line1, txt1, color=color.new(c1, 80), textcolor=c1)
+    if line2 > 0
+        label.new(bar_index + 5, line2, txt2, color=color.new(c2, 80), textcolor=c2)
+    if line3 > 0
+        label.new(bar_index + 5, line3, txt3, color=color.new(c3, 80), textcolor=c3)
+    if line4 > 0
+        label.new(bar_index + 5, line4, txt4, color=color.new(c4, 80), textcolor=c4)
+    if line5 > 0
+        label.new(bar_index + 5, line5, txt5, color=color.new(c5, 80), textcolor=c5)
