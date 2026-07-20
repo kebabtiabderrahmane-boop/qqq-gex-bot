@@ -2,18 +2,12 @@
   "spot": 695.33,
   "confluence": [
     {
-      "strike": 695.0,
-      "tags": "0DTE CW + 0DTE PW + 0DTE Flip + Agg PW + Agg Flip + Gamma Flip + HVL",
-      "score": 7,
-      "type": "FLIP"
-    },
-    {
       "strike": 930.0,
-      "tags": "Agg CW + Max Pain + Top 10 GEX + Max D1",
-      "score": 4,
+      "tags": "Agg CW + Max Pain + Top 10 GEX",
+      "score": 3,
       "type": "CALL"
     }
   ],
-  "updated": "04:45:26",
+  "updated": "05:15:21",
   "is_0dte": true
 }

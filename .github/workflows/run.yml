@@ -24,10 +24,10 @@ jobs:
         run: pip install yfinance numpy scipy
       - name: Run script
         run: python gex_bot.py
-      - name: Commit data
+      - name: Commit all updated files
         run: |
           git config --global user.name 'GEX Bot'
           git config --global user.email 'bot@github.com'
-          git add data.json
-          git commit -m 'Update GEX data' || exit 0
+          git add data.json qqq-gex-auto.pine
+          git commit -m 'Update GEX data and Pine Script' || exit 0
           git push
