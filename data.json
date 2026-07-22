@@ -1,33 +1,39 @@
 {
-  "spot": 708.97,
+  "spot": 708.23,
   "confluence": [
     {
-      "strike": 709.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + HVL + Intraday + Intraday",
-      "score": 7,
-      "type": "FLIP"
-    },
-    {
-      "strike": 705.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 5,
+      "strike": 710.0,
+      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 6,
       "type": "FLIP"
     },
     {
       "strike": 708.0,
-      "tags": "0DTE PW + Gamma Flip + HVL + Intraday",
+      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday + Intraday",
+      "score": 5,
+      "type": "FLIP"
+    },
+    {
+      "strike": 706.0,
+      "tags": "0DTE PW + Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "score": 5,
+      "type": "FLIP"
+    },
+    {
+      "strike": 709.0,
+      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 710.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "strike": 705.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX",
       "score": 4,
       "type": "FLIP"
     },
     {
       "strike": 707.0,
-      "tags": "Gamma Flip + HVL + Intraday",
+      "tags": "Gamma Flip + Top 10 GEX + HVL",
       "score": 3,
       "type": "FLIP"
     },
@@ -38,30 +44,24 @@
       "type": "FLIP"
     },
     {
-      "strike": 706.0,
+      "strike": 711.0,
       "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 715.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 680.0,
+      "tags": "Gamma Flip + Max Pain",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 720.0,
-      "tags": "Gamma Flip + Top 10 GEX",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 690.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 665.0,
+      "tags": "Gamma Flip + Min D1",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "21:45:45",
+  "updated": "17:49:43",
   "is_0dte": true
 }
