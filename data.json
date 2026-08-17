@@ -1,56 +1,56 @@
 {
-  "spot": 732.17,
+  "spot": 730.03,
   "confluence": [
     {
-      "strike": 732.0,
-      "tags": "Gamma Flip + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
-      "score": 6,
-      "type": "FLIP"
-    },
-    {
       "strike": 730.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX",
-      "score": 6,
-      "type": "FLIP"
-    },
-    {
-      "strike": 733.0,
-      "tags": "0DTE CW + Gamma Flip + Top 10 GEX + HVL + Intraday",
-      "score": 5,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 7,
       "type": "FLIP"
     },
     {
       "strike": 731.0,
+      "tags": "0DTE CW + Top 10 GEX + HVL + Intraday",
+      "score": 4,
+      "type": "CALL"
+    },
+    {
+      "strike": 732.0,
       "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 734.0,
-      "tags": "Gamma Flip + HVL + Intraday + Intraday",
-      "score": 4,
-      "type": "FLIP"
-    },
-    {
-      "strike": 735.0,
-      "tags": "Agg CW + Gamma Flip + Top 10 GEX + HVL",
-      "score": 4,
-      "type": "FLIP"
-    },
-    {
       "strike": 728.0,
-      "tags": "Gamma Flip + Gamma Flip",
-      "score": 2,
+      "tags": "Gamma Flip + Gamma Flip + Top 10 GEX",
+      "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 740.0,
+      "strike": 734.0,
+      "tags": "HVL + Intraday + Intraday",
+      "score": 3,
+      "type": "NEUTRAL"
+    },
+    {
+      "strike": 729.0,
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 742.0,
+      "strike": 733.0,
+      "tags": "HVL + Intraday",
+      "score": 2,
+      "type": "NEUTRAL"
+    },
+    {
+      "strike": 735.0,
+      "tags": "Agg CW + Top 10 GEX",
+      "score": 2,
+      "type": "CALL"
+    },
+    {
+      "strike": 738.0,
       "tags": "Gamma Flip + Gamma Flip",
       "score": 2,
       "type": "FLIP"
@@ -62,6 +62,6 @@
       "type": "FLIP"
     }
   ],
-  "updated": "16:59:40",
+  "updated": "18:01:38",
   "is_0dte": true
 }
