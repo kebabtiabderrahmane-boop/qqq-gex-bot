@@ -1,28 +1,34 @@
 {
-  "spot": 718.08,
+  "spot": 717.7,
   "confluence": [
     {
-      "strike": 720.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "strike": 718.0,
+      "tags": "0DTE CW + Agg CW + Gamma Flip + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
       "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 718.0,
-      "tags": "Gamma Flip + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 6,
+      "strike": 717.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 717.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 6,
+      "strike": 720.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 5,
       "type": "FLIP"
     },
     {
       "strike": 715.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday + Intraday",
-      "score": 6,
+      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday + Intraday",
+      "score": 5,
+      "type": "FLIP"
+    },
+    {
+      "strike": 719.0,
+      "tags": "Gamma Flip + Top 10 GEX + HVL",
+      "score": 3,
       "type": "FLIP"
     },
     {
@@ -32,13 +38,13 @@
       "type": "FLIP"
     },
     {
-      "strike": 719.0,
-      "tags": "Gamma Flip + HVL",
+      "strike": 716.0,
+      "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 716.0,
+      "strike": 714.0,
       "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
@@ -50,18 +56,12 @@
       "type": "FLIP"
     },
     {
-      "strike": 714.0,
-      "tags": "Gamma Flip + Intraday",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
       "strike": 728.0,
       "tags": "Gamma Flip + Gamma Flip",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "15:28:16",
+  "updated": "15:58:11",
   "is_0dte": true
 }
