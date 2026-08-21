@@ -1,9 +1,9 @@
 {
-  "spot": 712.78,
+  "spot": 713.26,
   "confluence": [
     {
       "strike": 713.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday + Intraday",
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday + Intraday",
       "score": 8,
       "type": "FLIP"
     },
@@ -14,33 +14,27 @@
       "type": "FLIP"
     },
     {
-      "strike": 710.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + HVL",
+      "strike": 714.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
       "score": 5,
       "type": "FLIP"
     },
     {
-      "strike": 714.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "strike": 715.0,
+      "tags": "0DTE CW + Agg CW + Top 10 GEX + HVL",
       "score": 4,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
-      "strike": 715.0,
+      "strike": 710.0,
       "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 718.0,
-      "tags": "Gamma Flip + Gamma Flip + Top 10 GEX",
+      "strike": 700.0,
+      "tags": "Gamma Flip + Max Pain + Top 10 GEX",
       "score": 3,
-      "type": "FLIP"
-    },
-    {
-      "strike": 717.0,
-      "tags": "Gamma Flip + Top 10 GEX",
-      "score": 2,
       "type": "FLIP"
     },
     {
@@ -50,18 +44,18 @@
       "type": "FLIP"
     },
     {
-      "strike": 700.0,
-      "tags": "Gamma Flip + Max Pain",
+      "strike": 732.0,
+      "tags": "Gamma Flip + Gamma Flip",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 728.0,
-      "tags": "Gamma Flip + Gamma Flip",
+      "strike": 640.0,
+      "tags": "Gamma Flip + Min D1",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "18:46:31",
+  "updated": "19:15:15",
   "is_0dte": true
 }
