@@ -1,43 +1,67 @@
 {
-  "spot": 704.79,
+  "spot": 703.56,
   "confluence": [
     {
       "strike": 705.0,
-      "tags": "0DTE CW + Agg CW + Top 10 GEX + Top 10 GEX + Top 10 GEX + Top 10 GEX + Top 10 GEX",
+      "tags": "Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL + Intraday",
       "score": 7,
-      "type": "CALL"
+      "type": "FLIP"
     },
     {
-      "strike": 704.0,
-      "tags": "0DTE PW + Agg PW + Top 10 GEX",
+      "strike": 700.0,
+      "tags": "Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + Top 10 GEX",
+      "score": 6,
+      "type": "FLIP"
+    },
+    {
+      "strike": 703.0,
+      "tags": "0DTE PW + Gamma Flip + Top 10 GEX + HVL",
+      "score": 4,
+      "type": "FLIP"
+    },
+    {
+      "strike": 706.0,
+      "tags": "Gamma Flip + HVL + Intraday",
       "score": 3,
-      "type": "PUT"
+      "type": "FLIP"
+    },
+    {
+      "strike": 707.0,
+      "tags": "Gamma Flip + HVL + Intraday",
+      "score": 3,
+      "type": "FLIP"
     },
     {
       "strike": 710.0,
-      "tags": "Max Pain + Top 10 GEX + HVL",
+      "tags": "Gamma Flip + Max Pain + Top 10 GEX",
       "score": 3,
-      "type": "CALL"
+      "type": "FLIP"
     },
     {
-      "strike": 712.0,
-      "tags": "HVL + Intraday + Intraday",
-      "score": 3,
-      "type": "NEUTRAL"
-    },
-    {
-      "strike": 713.0,
-      "tags": "HVL + Intraday",
+      "strike": 704.0,
+      "tags": "Gamma Flip + HVL",
       "score": 2,
-      "type": "NEUTRAL"
+      "type": "FLIP"
     },
     {
-      "strike": 714.0,
-      "tags": "HVL + Intraday",
+      "strike": 702.0,
+      "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
-      "type": "NEUTRAL"
+      "type": "FLIP"
+    },
+    {
+      "strike": 708.0,
+      "tags": "Gamma Flip + Intraday",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 709.0,
+      "tags": "Gamma Flip + Intraday",
+      "score": 2,
+      "type": "FLIP"
     }
   ],
-  "updated": "13:43:47",
+  "updated": "14:26:17",
   "is_0dte": true
 }
