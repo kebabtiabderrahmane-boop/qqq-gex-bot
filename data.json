@@ -1,39 +1,27 @@
 {
-  "spot": 703.56,
+  "spot": 705.21,
   "confluence": [
     {
       "strike": 705.0,
-      "tags": "Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL + Intraday",
-      "score": 7,
-      "type": "FLIP"
-    },
-    {
-      "strike": 700.0,
-      "tags": "Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + Top 10 GEX",
-      "score": 6,
-      "type": "FLIP"
-    },
-    {
-      "strike": 703.0,
-      "tags": "0DTE PW + Gamma Flip + Top 10 GEX + HVL",
-      "score": 4,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL + Intraday",
+      "score": 9,
       "type": "FLIP"
     },
     {
       "strike": 706.0,
-      "tags": "Gamma Flip + HVL + Intraday",
-      "score": 3,
+      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 707.0,
-      "tags": "Gamma Flip + HVL + Intraday",
-      "score": 3,
+      "strike": 700.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX",
+      "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 710.0,
-      "tags": "Gamma Flip + Max Pain + Top 10 GEX",
+      "strike": 703.0,
+      "tags": "Gamma Flip + Top 10 GEX + HVL",
       "score": 3,
       "type": "FLIP"
     },
@@ -44,24 +32,24 @@
       "type": "FLIP"
     },
     {
-      "strike": 702.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 707.0,
+      "tags": "HVL + Intraday",
       "score": 2,
-      "type": "FLIP"
+      "type": "NEUTRAL"
     },
     {
-      "strike": 708.0,
-      "tags": "Gamma Flip + Intraday",
+      "strike": 715.0,
+      "tags": "Agg CW + Top 10 GEX",
       "score": 2,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
-      "strike": 709.0,
-      "tags": "Gamma Flip + Intraday",
+      "strike": 650.0,
+      "tags": "Gamma Flip + Min D1",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "14:26:17",
+  "updated": "15:09:12",
   "is_0dte": true
 }
