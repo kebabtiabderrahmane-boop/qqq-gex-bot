@@ -1,28 +1,22 @@
 {
-  "spot": 714.81,
+  "spot": 716.76,
   "confluence": [
     {
-      "strike": 715.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
+      "strike": 716.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
       "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 714.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "strike": 717.0,
+      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
       "score": 6,
       "type": "FLIP"
     },
     {
-      "strike": 716.0,
+      "strike": 715.0,
       "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
       "score": 5,
-      "type": "FLIP"
-    },
-    {
-      "strike": 713.0,
-      "tags": "Gamma Flip + HVL + Intraday + Intraday",
-      "score": 4,
       "type": "FLIP"
     },
     {
@@ -32,21 +26,15 @@
       "type": "FLIP"
     },
     {
-      "strike": 717.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL",
+      "strike": 713.0,
+      "tags": "Gamma Flip + HVL + Intraday + Intraday",
+      "score": 4,
+      "type": "FLIP"
+    },
+    {
+      "strike": 714.0,
+      "tags": "Gamma Flip + HVL + Intraday",
       "score": 3,
-      "type": "FLIP"
-    },
-    {
-      "strike": 712.0,
-      "tags": "Gamma Flip + Gamma Flip",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 710.0,
-      "tags": "Gamma Flip + Top 10 GEX",
-      "score": 2,
       "type": "FLIP"
     },
     {
@@ -56,12 +44,24 @@
       "type": "FLIP"
     },
     {
+      "strike": 712.0,
+      "tags": "Gamma Flip + Gamma Flip",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
       "strike": 722.0,
+      "tags": "Gamma Flip + Gamma Flip",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 728.0,
       "tags": "Gamma Flip + Gamma Flip",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "19:19:54",
+  "updated": "23:14:39",
   "is_0dte": true
 }
