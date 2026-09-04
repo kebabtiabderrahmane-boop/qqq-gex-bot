@@ -1,45 +1,45 @@
 {
-  "spot": 718.86,
+  "spot": 717.49,
   "confluence": [
     {
       "strike": 718.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + HVL + Intraday + Intraday",
       "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 720.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "strike": 717.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + HVL + Intraday",
       "score": 6,
       "type": "FLIP"
     },
     {
+      "strike": 720.0,
+      "tags": "0DTE CW + Agg CW + Top 10 GEX + HVL",
+      "score": 4,
+      "type": "CALL"
+    },
+    {
       "strike": 719.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
-      "score": 5,
-      "type": "FLIP"
+      "tags": "Top 10 GEX + HVL + Intraday",
+      "score": 3,
+      "type": "CALL"
     },
     {
-      "strike": 721.0,
-      "tags": "Gamma Flip + HVL + Intraday + Intraday",
-      "score": 4,
-      "type": "FLIP"
-    },
-    {
-      "strike": 722.0,
-      "tags": "Gamma Flip + Gamma Flip + Top 10 GEX + Intraday",
-      "score": 4,
-      "type": "FLIP"
-    },
-    {
-      "strike": 717.0,
-      "tags": "Gamma Flip + HVL",
-      "score": 2,
+      "strike": 715.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "score": 3,
       "type": "FLIP"
     },
     {
       "strike": 714.0,
       "tags": "Gamma Flip + Intraday",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 712.0,
+      "tags": "Gamma Flip + Gamma Flip",
       "score": 2,
       "type": "FLIP"
     },
@@ -50,18 +50,18 @@
       "type": "FLIP"
     },
     {
-      "strike": 730.0,
+      "strike": 700.0,
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 700.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 680.0,
+      "tags": "Gamma Flip + Max Pain",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "16:40:43",
+  "updated": "19:08:09",
   "is_0dte": true
 }
