@@ -1,67 +1,49 @@
 {
-  "spot": 741.47,
+  "spot": 745.42,
   "confluence": [
     {
-      "strike": 740.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
-      "score": 5,
+      "strike": 748.0,
+      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday",
+      "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 743.0,
-      "tags": "Gamma Flip + Top 10 GEX + Intraday",
+      "strike": 746.0,
+      "tags": "Top 10 GEX + HVL + Intraday",
       "score": 3,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
-      "strike": 739.0,
-      "tags": "Gamma Flip + HVL + Intraday",
+      "strike": 744.0,
+      "tags": "Top 10 GEX + HVL + Intraday",
       "score": 3,
-      "type": "FLIP"
+      "type": "CALL"
+    },
+    {
+      "strike": 747.0,
+      "tags": "Top 10 GEX + HVL + Intraday",
+      "score": 3,
+      "type": "CALL"
     },
     {
       "strike": 745.0,
-      "tags": "0DTE CW + Gamma Flip + Top 10 GEX",
-      "score": 3,
-      "type": "FLIP"
-    },
-    {
-      "strike": 748.0,
-      "tags": "Agg CW + Gamma Flip + Top 10 GEX",
-      "score": 3,
-      "type": "FLIP"
-    },
-    {
-      "strike": 730.0,
-      "tags": "Gamma Flip + Top 10 GEX + Intraday",
-      "score": 3,
-      "type": "FLIP"
-    },
-    {
-      "strike": 741.0,
-      "tags": "Gamma Flip + Intraday",
+      "tags": "Top 10 GEX + HVL",
       "score": 2,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
-      "strike": 742.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 750.0,
+      "tags": "Top 10 GEX + Top 10 GEX",
       "score": 2,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
-      "strike": 738.0,
-      "tags": "Gamma Flip + HVL",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 736.0,
-      "tags": "Gamma Flip + HVL",
+      "strike": 685.0,
+      "tags": "Gamma Flip + Max Pain",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "22:04:57",
+  "updated": "17:27:48",
   "is_0dte": true
 }
