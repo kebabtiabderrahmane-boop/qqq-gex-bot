@@ -1,67 +1,67 @@
 {
-  "spot": 742.03,
+  "spot": 748.88,
   "confluence": [
     {
-      "strike": 742.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + HVL + Intraday",
-      "score": 6,
-      "type": "FLIP"
-    },
-    {
-      "strike": 740.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "strike": 750.0,
+      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + HVL",
       "score": 5,
       "type": "FLIP"
     },
     {
-      "strike": 743.0,
-      "tags": "0DTE CW + Agg CW + Top 10 GEX + HVL",
-      "score": 4,
-      "type": "CALL"
-    },
-    {
-      "strike": 739.0,
+      "strike": 749.0,
       "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 738.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
-      "score": 4,
+      "strike": 748.0,
+      "tags": "Gamma Flip + Top 10 GEX + Intraday",
+      "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 741.0,
-      "tags": "Gamma Flip + Intraday",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 745.0,
-      "tags": "Top 10 GEX + Top 10 GEX",
-      "score": 2,
+      "strike": 751.0,
+      "tags": "Top 10 GEX + HVL + Intraday",
+      "score": 3,
       "type": "CALL"
     },
     {
-      "strike": 737.0,
-      "tags": "Gamma Flip + Intraday",
-      "score": 2,
+      "strike": 752.0,
+      "tags": "Top 10 GEX + HVL + Intraday",
+      "score": 3,
+      "type": "CALL"
+    },
+    {
+      "strike": 740.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip",
+      "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 730.0,
+      "strike": 747.0,
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 764.0,
-      "tags": "Gamma Flip + Max D1",
+      "strike": 745.0,
+      "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
+    },
+    {
+      "strike": 753.0,
+      "tags": "HVL + Intraday",
+      "score": 2,
+      "type": "NEUTRAL"
+    },
+    {
+      "strike": 755.0,
+      "tags": "Top 10 GEX + Top 10 GEX",
+      "score": 2,
+      "type": "CALL"
     }
   ],
-  "updated": "22:54:02",
+  "updated": "18:08:55",
   "is_0dte": true
 }
