@@ -1,51 +1,51 @@
 {
-  "spot": 757.73,
+  "spot": 746.43,
   "confluence": [
     {
-      "strike": 758.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL + Intraday + Intraday",
-      "score": 8,
-      "type": "FLIP"
-    },
-    {
-      "strike": 757.0,
-      "tags": "0DTE PW + Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "strike": 746.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Intraday",
       "score": 5,
       "type": "FLIP"
     },
     {
-      "strike": 760.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX",
+      "strike": 750.0,
+      "tags": "0DTE CW + Top 10 GEX + Top 10 GEX + HVL",
       "score": 4,
-      "type": "FLIP"
-    },
-    {
-      "strike": 755.0,
-      "tags": "Agg PW + Gamma Flip + Top 10 GEX + HVL",
-      "score": 4,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
       "strike": 754.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "tags": "Agg CW + Top 10 GEX + HVL + Intraday",
       "score": 4,
-      "type": "FLIP"
+      "type": "CALL"
     },
     {
-      "strike": 756.0,
-      "tags": "Gamma Flip + HVL + Intraday",
+      "strike": 747.0,
+      "tags": "Gamma Flip + Top 10 GEX + Intraday",
       "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 759.0,
+      "strike": 745.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "score": 3,
+      "type": "FLIP"
+    },
+    {
+      "strike": 744.0,
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 780.0,
-      "tags": "Gamma Flip + Max D1",
+      "strike": 749.0,
+      "tags": "Top 10 GEX + Intraday",
+      "score": 2,
+      "type": "CALL"
+    },
+    {
+      "strike": 742.0,
+      "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
@@ -56,12 +56,12 @@
       "type": "FLIP"
     },
     {
-      "strike": 450.0,
-      "tags": "Gamma Flip + Intraday",
+      "strike": 715.0,
+      "tags": "Gamma Flip + Max Pain",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "23:33:54",
+  "updated": "19:05:46",
   "is_0dte": true
 }
