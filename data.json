@@ -1,39 +1,39 @@
 {
-  "spot": 712.44,
+  "spot": 715.34,
   "confluence": [
     {
-      "strike": 715.0,
-      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 6,
-      "type": "FLIP"
-    },
-    {
-      "strike": 710.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "strike": 716.0,
+      "tags": "0DTE CW + Gamma Flip + Top 10 GEX + HVL + Intraday",
       "score": 5,
       "type": "FLIP"
     },
     {
-      "strike": 714.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "strike": 720.0,
+      "tags": "Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Intraday",
+      "score": 5,
+      "type": "FLIP"
+    },
+    {
+      "strike": 715.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 716.0,
+      "strike": 710.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX",
+      "score": 4,
+      "type": "FLIP"
+    },
+    {
+      "strike": 714.0,
       "tags": "Gamma Flip + HVL + Intraday",
       "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 720.0,
-      "tags": "Top 10 GEX + Top 10 GEX + Intraday",
-      "score": 3,
-      "type": "CALL"
-    },
-    {
-      "strike": 712.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 717.0,
+      "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     },
@@ -44,24 +44,24 @@
       "type": "FLIP"
     },
     {
-      "strike": 717.0,
-      "tags": "HVL + Intraday",
-      "score": 2,
-      "type": "NEUTRAL"
-    },
-    {
-      "strike": 705.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 718.0,
+      "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 700.0,
+      "strike": 712.0,
+      "tags": "Gamma Flip + HVL",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 725.0,
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "18:45:08",
+  "updated": "22:59:42",
   "is_0dte": true
 }
