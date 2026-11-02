@@ -1,67 +1,67 @@
 {
-  "spot": 690.49,
+  "spot": 681.09,
   "confluence": [
     {
-      "strike": 690.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "strike": 680.0,
+      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX",
       "score": 6,
       "type": "FLIP"
     },
     {
-      "strike": 695.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 4,
+      "strike": 685.0,
+      "tags": "0DTE CW + Agg CW + HVL",
+      "score": 3,
+      "type": "CALL"
+    },
+    {
+      "strike": 675.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "score": 3,
+      "type": "FLIP"
+    },
+    {
+      "strike": 691.0,
+      "tags": "Max Pain + Top 10 GEX + Intraday",
+      "score": 3,
+      "type": "CALL"
+    },
+    {
+      "strike": 693.0,
+      "tags": "Gamma Flip + Top 10 GEX + Intraday",
+      "score": 3,
+      "type": "FLIP"
+    },
+    {
+      "strike": 694.0,
+      "tags": "Gamma Flip + HVL + Intraday",
+      "score": 3,
       "type": "FLIP"
     },
     {
       "strike": 700.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 4,
+      "tags": "Gamma Flip + Top 10 GEX + HVL",
+      "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 692.0,
-      "tags": "0DTE CW + HVL",
-      "score": 2,
-      "type": "CALL"
-    },
-    {
-      "strike": 688.0,
-      "tags": "Gamma Flip + Intraday",
+      "strike": 681.0,
+      "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 685.0,
+      "strike": 690.0,
       "tags": "Gamma Flip + HVL",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 696.0,
-      "tags": "Gamma Flip + Top 10 GEX",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 697.0,
-      "tags": "Gamma Flip + Intraday",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 680.0,
-      "tags": "Gamma Flip + Top 10 GEX",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 705.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 695.0,
+      "tags": "Gamma Flip + HVL",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "22:29:38",
+  "updated": "22:02:13",
   "is_0dte": true
 }
