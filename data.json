@@ -1,51 +1,57 @@
 {
-  "spot": 672.16,
+  "spot": 674.76,
   "confluence": [
     {
-      "strike": 672.0,
-      "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "strike": 675.0,
+      "tags": "Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
       "score": 6,
       "type": "FLIP"
     },
     {
-      "strike": 675.0,
-      "tags": "0DTE CW + Agg CW + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 5,
-      "type": "CALL"
-    },
-    {
-      "strike": 671.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
-      "score": 4,
-      "type": "FLIP"
-    },
-    {
       "strike": 670.0,
-      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "tags": "0DTE PW + Gamma Flip + Max Pain + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 6,
+      "type": "FLIP"
+    },
+    {
+      "strike": 680.0,
+      "tags": "0DTE CW + Gamma Flip + Top 10 GEX + HVL",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 673.0,
+      "strike": 660.0,
+      "tags": "Agg PW + Gamma Flip + Top 10 GEX + HVL",
+      "score": 4,
+      "type": "FLIP"
+    },
+    {
+      "strike": 674.0,
       "tags": "Gamma Flip + HVL + Intraday",
       "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 669.0,
+      "strike": 671.0,
       "tags": "Gamma Flip + Intraday + Intraday",
       "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 674.0,
-      "tags": "Max Pain + Intraday",
-      "score": 2,
-      "type": "NEUTRAL"
+      "strike": 685.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "score": 3,
+      "type": "FLIP"
     },
     {
-      "strike": 660.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 672.0,
+      "tags": "Gamma Flip + Intraday",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 668.0,
+      "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     },
@@ -54,14 +60,8 @@
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
-    },
-    {
-      "strike": 620.0,
-      "tags": "Gamma Flip + Min D1",
-      "score": 2,
-      "type": "FLIP"
     }
   ],
-  "updated": "20:07:51",
+  "updated": "00:37:08",
   "is_0dte": true
 }
