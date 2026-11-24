@@ -1,61 +1,67 @@
 {
-  "spot": 608.45,
+  "spot": 651.03,
   "confluence": [
     {
-      "strike": 600.0,
-      "tags": "Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 6,
+      "strike": 650.0,
+      "tags": "Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 605.0,
+      "strike": 660.0,
+      "tags": "0DTE CW + Gamma Flip + Max Pain + Top 10 GEX + HVL",
+      "score": 5,
+      "type": "FLIP"
+    },
+    {
+      "strike": 640.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 4,
+      "type": "FLIP"
+    },
+    {
+      "strike": 675.0,
+      "tags": "Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "score": 4,
+      "type": "FLIP"
+    },
+    {
+      "strike": 651.0,
+      "tags": "Gamma Flip + Intraday + Intraday",
+      "score": 3,
+      "type": "FLIP"
+    },
+    {
+      "strike": 652.0,
       "tags": "Gamma Flip + HVL + Intraday",
       "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 620.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL",
-      "score": 3,
+      "strike": 648.0,
+      "tags": "0DTE PW + Gamma Flip",
+      "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 630.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL",
-      "score": 3,
+      "strike": 647.0,
+      "tags": "Gamma Flip + Intraday",
+      "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 640.0,
-      "tags": "Top 10 GEX + Top 10 GEX + Intraday",
-      "score": 3,
-      "type": "CALL"
+      "strike": 646.0,
+      "tags": "Gamma Flip + Intraday",
+      "score": 2,
+      "type": "FLIP"
     },
     {
-      "strike": 625.0,
+      "strike": 665.0,
       "tags": "Gamma Flip + Top 10 GEX",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 645.0,
-      "tags": "Intraday + Intraday",
-      "score": 2,
-      "type": "NEUTRAL"
-    },
-    {
-      "strike": 675.0,
-      "tags": "Agg CW + Max Pain",
-      "score": 2,
-      "type": "CALL"
-    },
-    {
-      "strike": 480.0,
-      "tags": "Gamma Flip + Min D1",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "01:50:01",
-  "is_0dte": false
+  "updated": "00:30:17",
+  "is_0dte": true
 }
