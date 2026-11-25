@@ -1,67 +1,67 @@
 {
-  "spot": 638.1,
+  "spot": 633.93,
   "confluence": [
     {
-      "strike": 640.0,
-      "tags": "0DTE CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
-      "score": 6,
+      "strike": 635.0,
+      "tags": "0DTE CW + Agg CW + Gamma Flip + Top 10 GEX + Top 10 GEX + Top 10 GEX + HVL",
+      "score": 7,
       "type": "FLIP"
     },
     {
-      "strike": 635.0,
+      "strike": 630.0,
       "tags": "0DTE PW + Agg PW + Gamma Flip + Top 10 GEX + Top 10 GEX + HVL",
       "score": 6,
       "type": "FLIP"
     },
     {
       "strike": 650.0,
-      "tags": "Agg CW + Gamma Flip + Max Pain + Top 10 GEX + Top 10 GEX",
-      "score": 5,
-      "type": "FLIP"
-    },
-    {
-      "strike": 638.0,
-      "tags": "Gamma Flip + Top 10 GEX + HVL + Intraday",
+      "tags": "Gamma Flip + Max Pain + Top 10 GEX + Top 10 GEX",
       "score": 4,
       "type": "FLIP"
     },
     {
-      "strike": 639.0,
+      "strike": 640.0,
+      "tags": "Gamma Flip + Top 10 GEX + Top 10 GEX",
+      "score": 3,
+      "type": "FLIP"
+    },
+    {
+      "strike": 620.0,
       "tags": "Gamma Flip + HVL + Intraday",
       "score": 3,
       "type": "FLIP"
     },
     {
-      "strike": 637.0,
-      "tags": "Gamma Flip + HVL + Intraday",
-      "score": 3,
-      "type": "FLIP"
-    },
-    {
-      "strike": 636.0,
-      "tags": "Gamma Flip + Intraday",
-      "score": 2,
-      "type": "FLIP"
-    },
-    {
-      "strike": 641.0,
+      "strike": 634.0,
       "tags": "Gamma Flip + Top 10 GEX",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 633.0,
+      "strike": 625.0,
+      "tags": "Gamma Flip + HVL",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 623.0,
       "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     },
     {
-      "strike": 630.0,
-      "tags": "Gamma Flip + Top 10 GEX",
+      "strike": 621.0,
+      "tags": "Gamma Flip + Intraday",
+      "score": 2,
+      "type": "FLIP"
+    },
+    {
+      "strike": 616.0,
+      "tags": "Gamma Flip + Intraday",
       "score": 2,
       "type": "FLIP"
     }
   ],
-  "updated": "22:51:40",
+  "updated": "22:04:31",
   "is_0dte": true
 }
